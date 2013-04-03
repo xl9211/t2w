@@ -21,7 +21,7 @@ t = new Twit
   access_token: '17145920-tfySfKA4os42W2VTjd9jKBQB2HnXP5nZBZHP14lko',
   access_token_secret: 'otqv1kASMmDmHJqQoHFFDPYuhHPRdjJZoYAsvMwE'
 
-MY_IDS = ["17145920"]
+MY_IDS = [17145920]
 MY_LISTS = {}
 
 # 获取列表
@@ -40,7 +40,7 @@ getListMembers = (list) ->
       logger.error error
     else
       members = []
-      members.push user.id for user in reply.users
+      members.push user.id_str for user in reply.users
       MY_LISTS[list.name] = members
 
 # 获取最新Tweet
