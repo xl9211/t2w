@@ -21,9 +21,6 @@ t = new Twit
   access_token: '17145920-tfySfKA4os42W2VTjd9jKBQB2HnXP5nZBZHP14lko',
   access_token_secret: 'otqv1kASMmDmHJqQoHFFDPYuhHPRdjJZoYAsvMwE'
 
-MY_IDS = [17145920]
-MY_LISTS = {}
-
 # 获取列表
 getLists = ->
   t.get 'lists/list', (error, reply) ->
@@ -35,23 +32,25 @@ getLists = ->
 
 # 获取列表成员
 getListMembers = (list) ->
-  t.get 'lists/members', {list_id: list.id_str}, (error, reply) ->
+  t.get 'lists/members', {list_id: list.id}, (error, reply) ->
     if error
       logger.error error
     else
       members = []
-      members.push user.id_str for user in reply.users
-      MY_LISTS[list.name] = members
+      members.push user.id for user in reply.users
       onTweets(members)
 
 # 获取最新Tweet
-onTweets = (follows) ->
-  stream = t.stream('statuses/filter', {follow: follows})
+onTweets = (members) ->
+  stream = t.stream('statuses/filter', {follow: members})
   stream.on 'tweet', (tweet) ->
-    logger.info tweet
-    logger.info MY_LISTS
+    if tweet.user.id in members
+      logger.info tweet
 
-getLists()
+app = ->
+  getLists()
+
+app()
 
 
 
