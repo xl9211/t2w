@@ -18,14 +18,28 @@ t = new Twit
   access_token: '17145920-tfySfKA4os42W2VTjd9jKBQB2HnXP5nZBZHP14lko',
   access_token_secret: 'otqv1kASMmDmHJqQoHFFDPYuhHPRdjJZoYAsvMwE'
 
-t.get 'lists/members', list_id: '87695749', (err, reply) ->
-  if err
-    logger.error err
-  else
-    logger.info reply
+# 获取列表
+getLists = ->
+  t.get 'lists/list', (error, reply) ->
+    if error
+      logger.error error
+    else
+      for list in reply
+        getListMembers list.id_str
 
+# 获取列表成员
+getListMembers = (l_id) ->
+  t.get 'lists/members', {list_id: l_id}, (error, reply) ->
+    if error
+      logger.error error
+    else
+      members = []
+      onTweets members.push user.id_str for user in reply.users
 
-
-
+# 获取最新Tweet
+onTweets = (members) ->
+  stream = t.stream('statuses/filter', {follow: members})
+  stream.on 'tweet', (tweet) ->
+    logger.info tweet
 
 
