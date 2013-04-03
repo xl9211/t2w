@@ -40,6 +40,7 @@ getListMembers = (list) ->
     else
       members = []
       members.push user.id for user in reply.users
+      logger.info members
       MY_LISTS[list.name] = members
 
 # 获取最新Tweet
