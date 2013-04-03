@@ -1,5 +1,6 @@
 Twit = require 'twit'
 log4js = require 'log4js'
+_ = require 'underscore'
 
 NODE_ENV = process.env.NODE_ENV || 'production'
 if NODE_ENV is "development"
@@ -50,7 +51,9 @@ onTweets = (follows) ->
     logger.info tweet
 
 getLists()
-logger.info(MY_LISTS)
-onTweets(MY_IDS)
+onTweets()
+
+
+
 
 
