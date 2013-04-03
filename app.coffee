@@ -11,13 +11,14 @@ log4js.configure config.log
 logger = log4js.getLogger 't2w'
 
 logger.info NODE_ENV
+
 t = new Twit
   consumer_key: 'dxPlBUNhP6MHuOTfU0L5NA',
   consumer_secret: 'PxKjZYQkv6RBvOwo2VMGCNVk4C40BD4dTXFsznRY',
   access_token: '17145920-tfySfKA4os42W2VTjd9jKBQB2HnXP5nZBZHP14lko',
   access_token_secret: 'otqv1kASMmDmHJqQoHFFDPYuhHPRdjJZoYAsvMwE'
 
-t.get 'lists/list', (err, reply) ->
+t.get 'lists/members', list_id: '87695749', (err, reply) ->
   if err
     logger.error err
   else
