@@ -42,6 +42,7 @@ getListMembers = (list) ->
       members = []
       members.push user.id_str for user in reply.users
       MY_LISTS[list.name] = members
+      onTweets(members)
 
 # 获取最新Tweet
 onTweets = (follows) ->
@@ -51,7 +52,6 @@ onTweets = (follows) ->
     logger.info MY_LISTS
 
 getLists()
-onTweets(MY_IDS)
 
 
 
