@@ -29,15 +29,18 @@ getLists = ->
 
 # 获取列表成员
 getListMembers = (l_id) ->
+  logger.info l_id
   t.get 'lists/members', {list_id: l_id}, (error, reply) ->
     if error
       logger.error error
     else
       members = []
-      onTweets members.push user.id_str for user in reply.users
+      members.push user.id_str for user in reply.users
+      onTweets members
 
 # 获取最新Tweet
 onTweets = (members) ->
+  logger.info members
   stream = t.stream('statuses/filter', {follow: members})
   stream.on 'tweet', (tweet) ->
     logger.info tweet
