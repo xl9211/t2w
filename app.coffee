@@ -49,6 +49,7 @@ onTweets = (follows) ->
   stream = t.stream('statuses/filter', {follow: follows})
   stream.on 'tweet', (tweet) ->
     logger.info tweet
+    logger.info MY_LISTS
 
 getLists()
 onTweets()
