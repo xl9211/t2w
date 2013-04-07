@@ -32,10 +32,13 @@ task 'dev', '启动开发环境，先启动DB，在进行Compile监控', (error,
       invoke 'compile'
       console.log "开发环境已启动..."
 
-#task 'run', '测试运行', (error, stdout, stderr) ->
-#  exec 'git pull', (error, stdout, stderr) ->
-#    exec 'coffee .', (error, stdout, stderr) ->
-#      exec
+task 'devt', '测试开发运行', (error, stdout, stderr) ->
+  exec 'git pull', (error, stdout, stderr) ->
+    console.log stdout
+    exec 'coffee -c .', (error, stdout, stderr) ->
+      console.log stdout
+      exec 'NODE_ENV=development node app.js', (error, stdout, stderr) ->
+        console.log stdout
 
 
 
