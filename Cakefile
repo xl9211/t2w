@@ -1,9 +1,12 @@
 exec = require('child_process').exec
-spawn = require('child_process').spawn
 
 task 'compile', '编译Coffee为JavaScript', ->
-  spawn 'jitter', ['.', '.']
-  console.log "编译监控已开始..."
+  exec 'git pull', (error, stdout, stderr) ->
+    console.log stdout
+    console.log "代码已更新..."
+    exec 'coffee -c .', (error, stdout, stderr) ->
+      console.log stdout
+      console.log "编译已完成..."
 
 task 'test', '进行单元测试', ->
   exec 'jasmine-node --coffee tests/', (error, stdout, stderr) ->
@@ -32,13 +35,7 @@ task 'dev', '启动开发环境，先启动DB，在进行Compile监控', ->
       invoke 'compile'
       console.log "开发环境已启动..."
 
-task 'devt', '测试开发运行', ->
-  exec 'git pull', (error, stdout, stderr) ->
-    console.log stdout
-    exec 'coffee -c .', (error, stdout, stderr) ->
-      console.log stdout
-      exec 'NODE_ENV=development node app.js', (error, stdout, stderr) ->
-        console.log stdout
+
 
 
 
