@@ -2,10 +2,8 @@ exec = require('child_process').exec
 
 task 'compile', '编译Coffee为JavaScript', ->
   exec 'git pull', (error, stdout, stderr) ->
-    console.log stdout
     console.log "代码已更新..."
     exec 'coffee -c .', (error, stdout, stderr) ->
-      console.log stdout
       console.log "编译已完成..."
 
 task 'test', '进行单元测试', ->
