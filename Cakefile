@@ -22,7 +22,7 @@ task 'stopm', '停止MongoDB', ->
   exec 'killall -9 mongod', (error, stdout, stderr) ->
     console.log "MongoDB已停止..."
 
-task 'dev', '启动开发环境，先启动DB，在进行Compile监控', (error, stdout, stderr) ->
+task 'dev', '启动开发环境，先启动DB，在进行Compile监控', ->
   exec 'mongod --config ~/.mongodb/mongodb.conf', (error, stdout, stderr) ->
     if stdout.indexOf("ERROR") isnt -1
       console.log stdout
@@ -32,13 +32,12 @@ task 'dev', '启动开发环境，先启动DB，在进行Compile监控', (error,
       invoke 'compile'
       console.log "开发环境已启动..."
 
-task 'devt', '测试开发运行', (error, stdout, stderr) ->
+task 'devt', '测试开发运行', ->
   exec 'git pull', (error, stdout, stderr) ->
     console.log stdout
     exec 'coffee -c .', (error, stdout, stderr) ->
       console.log stdout
-      exec 'NODE_ENV=development node app.js', (error, stdout, stderr) ->
-        console.log stdout
+      spawn 'NODE_ENV=development node app.js'
 
 
 

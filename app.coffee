@@ -10,10 +10,7 @@ if NODE_ENV is "production"
 
 log4js.configure config.log
 logger = log4js.getLogger 't2w'
-
 logger.info NODE_ENV
-
-
 
 t = new Twit
   consumer_key: 'dxPlBUNhP6MHuOTfU0L5NA',
