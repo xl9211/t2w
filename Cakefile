@@ -37,7 +37,8 @@ task 'devt', '测试开发运行', ->
     console.log stdout
     exec 'coffee -c .', (error, stdout, stderr) ->
       console.log stdout
-      spawn 'NODE_ENV=development node app.js'
+      exec 'NODE_ENV=development node app.js', (error, stdout, stderr) ->
+        console.log stdout
 
 
 
